@@ -1,0 +1,46 @@
+<%= form_with(model: course) do |form| %>
+  <% if course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+        <% course.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :prefix %>
+    <%= form.text_field :prefix, class: "form-control w-50" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :number %>
+    <%= form.number_field :number, class: "form-control w-50" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control w-50"  %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :sections %>
+    <br />
+    <div class="checks mx-3">
+      <% if Section.where(course_id: course.id).all.size > 0 || Section.where(course_id: nil).all.size > 0 %>
+        <%= form.collection_check_boxes(:section_ids, Section.where(course_id: course.id).all, :id, :name) %>
+        <%= form.collection_check_boxes(:section_ids, Section.where(course_id: nil).all, :id, :name) %>
+      <% else %>
+        <%= "None available" %>
+      <% end %>
+      
+    </div>
+  </div>
+
+  <div class="actions mb-1 my-3">
+    <%= form.submit class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -1,0 +1,142 @@
+<%# stackoverflow.com/questions/45065065/rails-5-redirect-notice-style %>
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>">
+    <%= message %>
+  </div>
+<% end %>
+<%# end of reference %>
+
+<h1>Search results...</h1>
+<hr />
+<% if @teachers.size > 0 %>
+  <h1>Teachers</h1>
+  <div>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Staff ID</th>
+          <th>Email</th>
+          <th>Office</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @teachers.each do |teacher| %>
+          <tr>
+            <td><%= teacher.first_name %></td>
+            <td><%= teacher.last_name %></td>
+            <td><%= teacher.nine_hundred %></td>
+            <td><%= teacher.email %></td>
+            <td><%= teacher.office ? teacher.office.name : "NONE" %>
+            </td>
+            <td><%= link_to 'Show', teacher %></td>
+            <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
+            <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<% if @offices.size > 0 %>
+  <h1>Offices</h1>
+  <div>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Building Name</th>
+          <th>Floor Number</th>
+          <th>Room Number</th>
+          <th>Teacher</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @offices.each do |office| %>
+          <tr>
+            <td><%= office.building_name %></td>
+            <td><%= office.floor_number %></td>
+            <td><%= office.room_number %></td>
+            <td><%= office.teacher ? office.teacher.name : "NONE" %></td>
+            <td><%= link_to 'Show', office %></td>
+            <td><%= link_to 'Edit', edit_office_path(office) %></td>
+            <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<% if @courses.size > 0 %>
+  <h1>Courses</h1>
+  <div>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Prefix</th>
+          <th>Number</th>
+          <th>Description</th>
+          <th>Section(s)</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @courses.each do |course| %>
+          <tr>
+            <td><%= course.prefix %></td>
+            <td><%= course.number %></td>
+            <td><%= course.description %></td>
+            <td>
+              <% if course.sections.all.size > 0 %>
+                <% course.sections.each do |section| %>
+                  <li class="list-unstyled"><%= section.name %></li>
+                <% end %>
+              <% else %>
+                <%= "NONE" %>
+              <% end %>
+            </td>
+            <td><%= link_to 'Show', course %></td>
+            <td><%= link_to 'Edit', edit_course_path(course) %></td>
+            <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<% if @sections.size > 0 %>
+  <h1>Sections</h1>
+  <div>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Year</th>
+          <th>Semester</th>
+          <th>Course</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @sections.each do |section| %>
+          <tr>
+            <td><%= section.year %></td>
+            <td><%= section.semester %></td>
+            <td><%= section.course ? section.course.name : "NONE" %></td>
+            <td><%= link_to 'Show', section %></td>
+            <td><%= link_to 'Edit', edit_section_path(section) %></td>
+            <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

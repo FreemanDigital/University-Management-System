@@ -1,0 +1,22 @@
+<%# stackoverflow.com/questions/45065065/rails-5-redirect-notice-style %>
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>">
+    <%= message %>
+  </div>
+<% end %>
+<%# end of reference %>
+
+<div class="container bg-white py-5 px-3 mb-3 border border-1">
+  <div class="jumbotron">
+    <h1 class="display-4"><%= @office.building_name %></h1>
+    <hr class="my-3">
+    <p class="lead">Floor: <%= @office.floor_number %></p>
+    <p class="lead">Room: <%= @office.room_number %></p>
+    <p class="lead">Teacher:
+      <%= @office.teacher ? @office.teacher.name : "NONE" %>
+    </p>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_office_path(@office), class:"btn btn-secondary" %>
+<%= link_to 'Back', offices_path, class:"btn btn-secondary" %>
